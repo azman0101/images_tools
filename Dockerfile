@@ -1,5 +1,5 @@
 
-FROM debian:stretch as build-env
+FROM debian:bullseye as build-env
 
 RUN apt update && apt-get install -y curl build-essential bind9utils libbind-dev libkrb5-dev libssl-dev libcap-dev libxml2-dev libjson-c-dev libgeoip-dev
 
