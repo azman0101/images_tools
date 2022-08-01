@@ -5,7 +5,7 @@ RUN apt update && apt-get install -y curl build-essential bind9utils libbind-dev
 
 FROM debian:bullseye-slim
 
-RUN apt update && apt install -qqy dnsutils curl vim telnet python3 wget \
+RUN apt update && apt install -qqy dnsutils curl vim telnet python3 wget python3-pip \
     && rm -rf /var/lib/apt/lists/*
 
 ENV PATH /google-cloud-sdk/bin:$PATH
@@ -22,6 +22,7 @@ RUN gcloud config set core/disable_usage_reporting true && \
     gcloud config set component_manager/disable_update_check true && \
     gcloud config set metrics/environment github_docker_image
 
+RUN pip install rsa
 COPY ./scripts /
 COPY README.md /
 
