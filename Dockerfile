@@ -16,7 +16,7 @@ RUN curl -LO "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-
 
 FROM debian:bullseye-slim
 COPY --from=build-env /google-cloud-sdk/bin/gcloud /usr/local/bin/
-RUN apt update && apt install -qqy dnsutils curl vim telnet wget \
+RUN apt update && apt install -qqy dnsutils curl vim telnet python3 wget \
     && rm -rf /var/lib/apt/lists/*
 
 RUN gcloud config set core/disable_usage_reporting true && \
