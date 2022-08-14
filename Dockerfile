@@ -46,7 +46,7 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr
 
 RUN ( curl https://sh.rustup.rs -sSf | sh -s -- -y ) && . "$HOME/.cargo/env"
 
-RUN cargo install starship --locked
+RUN ~/.cargo/bin/cargo install starship --locked
 
 RUN chsh -s /bin/zsh root
 
