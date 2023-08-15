@@ -54,4 +54,4 @@ RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
 #USER vault
 COPY ./zshrc /root/.zshrc
 
-ENTRYPOINT [ "/bin/zsh" ]
+CMD [ "/bin/zsh" ]
