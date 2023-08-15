@@ -50,7 +50,7 @@ COPY ./scripts /
 COPY README.md /
 
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.10.2
+RUN git clone https://github.com/asdf-vm/asdf.git ~/.asdf --branch v0.12.0
 #USER vault
 COPY ./zshrc /root/.zshrc
 
