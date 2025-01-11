@@ -8,7 +8,7 @@ FROM debian:bookworm-backports
 RUN export DEBIAN_FRONTEND=noninteractive && for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && apt update && apt install -qqy apt-transport-https bash bind9utils build-essential ca-certificates curl default-mysql-client dnsutils file gnupg gnupg2 jq msmtp-mta nodejs postgresql-client python3 telnet unzip vim wget zsh netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
 
-ENV VAULT_VERSION 1.18.3
+ENV VAULT_VERSION=1.18.3
 
 RUN mkdir -p /tmp/build \
     && cd /tmp/build \
@@ -20,7 +20,7 @@ RUN mkdir -p /tmp/build \
     && cd /tmp \
     && rm -rf /tmp/build
 
-ENV PATH /google-cloud-sdk/bin:$PATH
+ENV PATH=/google-cloud-sdk/bin:$PATH
 ARG CLOUD_SDK_VERSION=505.0.0
 RUN curl -LO "https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-$CLOUD_SDK_VERSION-linux-x86_64.tar.gz" && \
     tar xzf "google-cloud-sdk-$CLOUD_SDK_VERSION-linux-x86_64.tar.gz" && \
