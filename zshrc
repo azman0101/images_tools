@@ -102,6 +102,7 @@ source $ZSH/oh-my-zsh.sh
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="/root/bin:${PATH}"
+source "$HOME/.cargo/env"
 
 . $HOME/.asdf/asdf.sh
 
