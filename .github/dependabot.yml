@@ -7,5 +7,4 @@ updates:
     open-pull-requests-limit: 10
     rebase-strategy: "auto"
     ignore:
-      - dependency-name: "*"
-        versions: ["*"]
+      - dependency-name: "*"  
