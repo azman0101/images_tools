@@ -1,4 +1,3 @@
-
 # FROM debian:bullseye as build-env
 
 # RUN apt update && apt-get install -y  bind9utils build-essential curl jq libbind-dev libcap-dev libgeoip-dev libjson-c-dev libkrb5-dev libssl-dev libxml2-dev postgresql-client python3 unzip wget zsh
