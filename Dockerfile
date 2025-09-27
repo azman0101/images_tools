@@ -50,7 +50,7 @@ RUN curl -sSfL https://sh.rustup.rs -o /tmp/rustup-init.sh \
     && . "$HOME/.cargo/env" \
     && rm /tmp/rustup-init.sh
 
-RUN ~/.cargo/bin/cargo install starship --locked
+RUN . "$HOME/.cargo/env" && cargo install starship --locked
 
 RUN chsh -s /bin/zsh root
 
