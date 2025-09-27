@@ -18,5 +18,5 @@ jobs:
           # Use PAT if available, fallback to GITHUB_TOKEN
           # PAT may be needed for certain repository configurations
           token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
-          # Simple release type appropriate for Docker/shell script projects
-          release-type: simple
+          # Use config file for more flexible configuration
+          config-file: .release-please-config.json
