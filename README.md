@@ -75,10 +75,10 @@ jobs:
 
 ## 🛠 Included Scripts
 
-The container includes helpful scripts located in the root directory:
+The container includes helpful network diagnostic scripts located in the root directory, useful for troubleshooting and validating connectivity in DevOps workflows:
 
-- `load.sh` - DNS performance testing and load generation
-- `lookup_test.sh` - DNS lookup latency testing
+- `load.sh` - Network load generation and basic DNS query testing
+- `lookup_test.sh` - Automated DNS lookup and latency checks for network troubleshooting
 
 ## 🔄 Release Process
 
