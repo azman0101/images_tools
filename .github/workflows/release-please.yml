@@ -18,6 +18,6 @@ jobs:
         with:
           # Use PAT if available, fallback to GITHUB_TOKEN
           # PAT may be needed for certain repository configurations
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN || secrets.MY_RELEASE_PLEASE_TOKEN }}
           # Use config file for more flexible configuration
           config-file: .release-please-config.json
