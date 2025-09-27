@@ -1,5 +1,5 @@
 
-FROM debian:bookworm-backports
+FROM debian:trixie-backports
 
 RUN export DEBIAN_FRONTEND=noninteractive && for i in $(seq 1 8); do mkdir -p "/usr/share/man/man${i}"; done && apt update && apt install -qqy apt-transport-https bash bind9utils build-essential ca-certificates curl default-mysql-client dnsutils file gnupg gnupg2 jq msmtp-mta nodejs postgresql-client python3 telnet unzip vim wget zsh netcat-openbsd \
     && rm -rf /var/lib/apt/lists/*
@@ -8,9 +8,9 @@ ENV VAULT_VERSION=1.18.3
 
 RUN mkdir -p /tmp/build \
     && cd /tmp/build \
-    && wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip  \
-    && wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS \
-    && wget https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS.sig \
+    && curl -fsSL -o vault_${VAULT_VERSION}_linux_amd64.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip \
+    && curl -fsSL -o vault_${VAULT_VERSION}_SHA256SUMS https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS \
+    && curl -fsSL -o vault_${VAULT_VERSION}_SHA256SUMS.sig https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS.sig \
     && grep vault_${VAULT_VERSION}_linux_amd64.zip vault_${VAULT_VERSION}_SHA256SUMS | sha256sum -c \
     && unzip -d /usr/local/bin vault_${VAULT_VERSION}_linux_amd64.zip \
     && cd /tmp \
@@ -31,7 +31,7 @@ RUN gcloud config set core/disable_usage_reporting true && \
     gcloud config set metrics/environment github_docker_image
 
 RUN curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor
-RUN echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] http://repo.mongodb.org/apt/debian bookworm/mongodb-org/8.0 main" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
+RUN echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] http://repo.mongodb.org/apt/debian trixie/mongodb-org/8.0 main" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list
 RUN apt update && apt search mongodb && apt-get install mongodb-org-shell -qqy
 
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null && \
