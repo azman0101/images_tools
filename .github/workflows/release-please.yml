@@ -1,0 +1,22 @@
+name: Release Please
+
+on:
+  push:
+    branches:
+      - main
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  release-please:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: googleapis/release-please-action@v4
+        with:
+          # Use PAT if available, fallback to GITHUB_TOKEN
+          # PAT may be needed for certain repository configurations
+          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN }}
+          # Simple release type appropriate for Docker/shell script projects
+          release-type: simple
