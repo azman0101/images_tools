@@ -44,7 +44,11 @@ RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr
     apt-get update && apt-get install git yarn unzip -qqy && \
     yarn global add aws-es-curl
 
-RUN ( curl https://sh.rustup.rs -sSf | sh -s -- -y ) && . "$HOME/.cargo/env"
+RUN curl -sSfL https://sh.rustup.rs -o /tmp/rustup-init.sh \
+    && grep 'Rust Installer' /tmp/rustup-init.sh \
+    && sh /tmp/rustup-init.sh -y \
+    && . "$HOME/.cargo/env" \
+    && rm /tmp/rustup-init.sh
 
 RUN ~/.cargo/bin/cargo install starship --locked
 
