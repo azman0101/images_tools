@@ -14,10 +14,11 @@ jobs:
   release-please:
     runs-on: ubuntu-latest
     steps:
-      - uses: googleapis/release-please-action@v4
+      - uses: googleapis/release-please-action@c2a5a2bd6a758a0937f1ddb1e8950609867ed15c
         with:
           # Use PAT if available, fallback to GITHUB_TOKEN
           # PAT may be needed for certain repository configurations
-          token: ${{ secrets.PAT || secrets.GITHUB_TOKEN || secrets.MY_RELEASE_PLEASE_TOKEN }}
+          token: ${{ secrets.GITHUB_TOKEN || secrets.MY_RELEASE_PLEASE_TOKEN }}
           # Use config file for more flexible configuration
           config-file: .release-please-config.json
+          manifest-file: .release-please-manifest.json
