@@ -11,7 +11,7 @@
     {
       "fileMatch": ["^Dockerfile$"],
       "matchStrings": [
-        "ENV VAULT_VERSION=(?<currentValue>.*?)$"
+        "ARG VAULT_VERSION=(?<currentValue>.*?)$"
       ],
       "depNameTemplate": "hashicorp/vault",
       "datasourceTemplate": "github-releases"
