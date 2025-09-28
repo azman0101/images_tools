@@ -76,7 +76,12 @@ RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/inst
 # Install Mise
 RUN install -dm 755 /etc/apt/keyrings && \
     wget -qO - https://mise.jdx.dev/gpg-key.pub | gpg --dearmor | tee /etc/apt/keyrings/mise-archive-keyring.gpg 1> /dev/null && \
-    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$TARGETARCH] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list && \
+    if [ -z "$TARGETARCH" ]; then echo "TARGETARCH is not set" >&2; exit 1; fi && \
+    case "$TARGETARCH" in \
+        amd64|arm64) DEB_ARCH="$TARGETARCH" ;; \
+        *) echo "Unsupported TARGETARCH: $TARGETARCH" >&2; exit 1 ;; \
+    esac && \
+    echo "deb [signed-by=/etc/apt/keyrings/mise-archive-keyring.gpg arch=$DEB_ARCH] https://mise.jdx.dev/deb stable main" | tee /etc/apt/sources.list.d/mise.list && \
     apt-get update && apt-get install -y --no-install-recommends mise && \
     rm -rf /var/lib/apt/lists/*
 
