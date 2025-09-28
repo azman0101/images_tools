@@ -103,9 +103,10 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 export PATH="/root/bin:${PATH}"
 
-. $HOME/.asdf/asdf.sh
+# Activate Mise
+eval "$(mise activate zsh)"
 
-# append completions to fpath
-fpath=(${ASDF_DIR}/completions $fpath)
+# append completions to fpath for Mise
+fpath=($HOME/.local/share/mise/completions/zsh $fpath)
 # initialise completions with ZSH's compinit
 autoload -Uz compinit && compinit
