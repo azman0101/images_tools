@@ -80,6 +80,35 @@ The container includes helpful network diagnostic scripts located in the root di
 - `load.sh` - Network load generation and basic DNS query testing
 - `lookup_test.sh` - Automated DNS lookup and latency checks for network troubleshooting
 
+## 🔧 Dependency Management
+
+This repository uses **Renovate** for automated dependency updates that go beyond what Dependabot can handle.
+
+### What's Managed by Renovate
+
+- **HashiCorp Vault**: Automatically tracks and updates the `VAULT_VERSION` environment variable in the Dockerfile
+- Monitors `hashicorp/vault` GitHub releases and creates pull requests when new versions are available
+
+### What's Managed by Dependabot
+
+- **Base Docker Images**: Updates `FROM` instructions (e.g., `debian:trixie-backports`)
+- Standard package ecosystem dependencies
+
+### How It Works
+
+Renovate uses regex managers to parse the Dockerfile and identify version variables that need tracking:
+
+```dockerfile
+ENV VAULT_VERSION=1.18.3
+```
+
+When a new Vault release is published, Renovate will automatically:
+1. Create a branch with the updated version
+2. Open a pull request with the changes
+3. Include release notes and changelogs
+
+The Renovate workflow runs daily at 2 AM UTC and can also be triggered manually from the Actions tab.
+
 ## 🔄 Release Process
 
 This repository uses [Release Please](https://github.com/googleapis/release-please) for automated release management. Releases are automatically created based on [Conventional Commits](https://www.conventionalcommits.org/).
