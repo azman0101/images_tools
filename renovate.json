@@ -1,5 +1,16 @@
 {
+  "$schema": "https://docs.renovatebot.com/renovate-schema.json",
   "extends": [
     "config:recommended"
+  ],
+  "regexManagers": [
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "ENV VAULT_VERSION=(?<currentValue>.*?)\\n"
+      ],
+      "depNameTemplate": "hashicorp/vault",
+      "datasourceTemplate": "github-releases"
+    }
   ]
 }
