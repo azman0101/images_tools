@@ -15,6 +15,14 @@
       ],
       "depNameTemplate": "hashicorp/vault",
       "datasourceTemplate": "github-releases"
+    },
+    {
+      "fileMatch": ["^Dockerfile$"],
+      "matchStrings": [
+        "ARG CLOUD_SDK_VERSION=(?<currentValue>.*?)$"
+      ],
+      "depNameTemplate": "GoogleCloudPlatform/cloud-sdk-docker",
+      "datasourceTemplate": "github-releases"
     }
   ]
 }
