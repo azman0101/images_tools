@@ -39,7 +39,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 ARG VAULT_VERSION=1.18.3
 ENV VAULT_VERSION=${VAULT_VERSION}
 ARG TARGETARCH
-ARG ARCH=${TARGETARCH:-amd64}
 RUN mkdir -p /tmp/build && cd /tmp/build && \
     curl -fsSL -o vault_${VAULT_VERSION}_linux_${TARGETARCH}.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_${TARGETARCH}.zip && \
     curl -fsSL -o vault_${VAULT_VERSION}_SHA256SUMS https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS && \
