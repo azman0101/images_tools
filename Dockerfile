@@ -92,7 +92,6 @@ COPY --from=builder /usr/lib /usr/lib
 COPY --from=builder /etc /etc
 COPY --from=builder /root /root
 COPY --from=builder /lib /lib
-COPY --from=builder /lib64 /lib64
 
 # Set environment variables
 ENV PATH=/google-cloud-sdk/bin:$PATH
