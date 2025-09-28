@@ -5,6 +5,14 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [0.4.0](https://github.com/azman0101/images_tools/compare/v0.3.0...v0.4.0) (2025-09-28)
+
+
+### Features
+
+* complete Renovate implementation with documentation ([1a9fdc6](https://github.com/azman0101/images_tools/commit/1a9fdc61ad9e2060f473640a07dd1b2862b00cde))
+* implement Renovate configuration for Vault version management ([d0a293f](https://github.com/azman0101/images_tools/commit/d0a293fb418e747cb575cb8b7db2476647cc8761))
+
 ## [0.3.0](https://github.com/azman0101/images_tools/compare/v0.2.0...v0.3.0) (2025-09-27)
 
 
