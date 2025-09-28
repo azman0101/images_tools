@@ -34,12 +34,14 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Vault
 ARG VAULT_VERSION=1.18.3
+ARG TARGETARCH
+ARG ARCH=${TARGETARCH:-amd64}
 RUN mkdir -p /tmp/build && cd /tmp/build && \
-    curl -fsSL -o vault_${VAULT_VERSION}_linux_amd64.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_amd64.zip && \
+    curl -fsSL -o vault_${VAULT_VERSION}_linux_${ARCH}.zip https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_linux_${ARCH}.zip && \
     curl -fsSL -o vault_${VAULT_VERSION}_SHA256SUMS https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS && \
     curl -fsSL -o vault_${VAULT_VERSION}_SHA256SUMS.sig https://releases.hashicorp.com/vault/${VAULT_VERSION}/vault_${VAULT_VERSION}_SHA256SUMS.sig && \
-    grep vault_${VAULT_VERSION}_linux_amd64.zip vault_${VAULT_VERSION}_SHA256SUMS | sha256sum -c && \
-    unzip -d /usr/local/bin vault_${VAULT_VERSION}_linux_amd64.zip && \
+    grep vault_${VAULT_VERSION}_linux_${ARCH}.zip vault_${VAULT_VERSION}_SHA256SUMS | sha256sum -c && \
+    unzip -d /usr/local/bin vault_${VAULT_VERSION}_linux_${ARCH}.zip && \
     cd / && rm -rf /tmp/build
 
 # Install Google Cloud SDK
