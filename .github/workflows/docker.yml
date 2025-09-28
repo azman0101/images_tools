@@ -77,5 +77,6 @@ jobs:
           context: .
           file: Dockerfile
           push: true
+          platforms: linux/amd64,linux/arm64
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ env.VERSION }}${{ github.event_name == 'pull_request' && format('-pr-{0}', github.event.number) || '' }}
           labels: ${{ steps.meta.outputs.labels }}
