@@ -37,6 +37,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 
 # Install Vault
 ARG VAULT_VERSION=1.18.3
+ENV VAULT_VERSION=${VAULT_VERSION}
 ARG TARGETARCH
 ARG ARCH=${TARGETARCH:-amd64}
 RUN mkdir -p /tmp/build && cd /tmp/build && \
@@ -85,7 +86,6 @@ FROM debian:trixie-slim
 # Copy binaries and configurations from builder
 COPY --from=builder /usr/local/bin /usr/local/bin
 COPY --from=builder /usr/bin /usr/bin
-COPY --from=builder /google-cloud-sdk /google-cloud-sdk
 COPY --from=builder /usr/share /usr/share
 COPY --from=builder /usr/lib /usr/lib
 COPY --from=builder /etc /etc
@@ -93,7 +93,7 @@ COPY --from=builder /root /root
 COPY --from=builder /lib /lib
 
 # Set environment variables
-ENV PATH=/usr/local/bin:/usr/bin:/google-cloud-sdk/bin:$PATH
+ENV PATH=/usr/local/bin:/usr/bin:$PATH
 ENV DEBIAN_FRONTEND=noninteractive
 
 # Copy scripts and README
