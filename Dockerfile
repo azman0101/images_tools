@@ -59,9 +59,21 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
 # Install MongoDB shell
 ARG MONGOSH_VERSION=2.2.12
 ARG TARGETARCH
-RUN curl -fsSL -o mongosh.deb "https://downloads.mongodb.com/compass/mongodb-mongosh_${MONGOSH_VERSION}_${TARGETARCH}.deb" && \
+RUN set -e && \
+    # Download mongosh .deb, checksum, and signature \
+    curl -fsSL -o mongosh.deb "https://downloads.mongodb.com/compass/mongodb-mongosh_${MONGOSH_VERSION}_${TARGETARCH}.deb" && \
+    curl -fsSL -o mongosh.deb.sha256 "https://downloads.mongodb.com/compass/mongodb-mongosh_${MONGOSH_VERSION}_${TARGETARCH}.deb.sha256" && \
+    curl -fsSL -o mongodb-mongosh-checksums.asc "https://downloads.mongodb.com/compass/mongodb-mongosh-checksums.asc" && \
+    # Import MongoDB public GPG key \
+    curl -fsSL https://pgp.mongodb.com/server-6.0.asc | gpg --dearmor -o /usr/share/keyrings/mongodb-server.gpg && \
+    gpg --no-default-keyring --keyring /usr/share/keyrings/mongodb-server.gpg --import /usr/share/keyrings/mongodb-server.gpg && \
+    # Verify the signature of the checksums file \
+    gpg --no-default-keyring --keyring /usr/share/keyrings/mongodb-server.gpg --verify mongodb-mongosh-checksums.asc mongosh.deb.sha256 || (echo "GPG signature verification failed!" && exit 1) && \
+    # Verify the checksum of the downloaded .deb \
+    sha256sum -c mongosh.deb.sha256 --ignore-missing && \
+    # Install the package \
     apt-get install -y ./mongosh.deb && \
-    rm -rf mongosh.deb /var/lib/apt/lists/*
+    rm -rf mongosh.deb mongosh.deb.sha256 mongodb-mongosh-checksums.asc /var/lib/apt/lists/*
 
 # Install Yarn
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null && \
