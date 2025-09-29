@@ -1,5 +1,5 @@
 # Build stage
-FROM debian:bookworm-slim AS builder
+FROM debian:trixie-slim AS builder
 
 # Set build arg for target architecture
 ARG TARGETARCH
@@ -57,10 +57,11 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
     gcloud config set metrics/environment github_docker_image
 
 # Install MongoDB shell
-RUN curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg -o /usr/share/keyrings/mongodb-server-8.0.gpg --dearmor && \
-    echo "deb [ signed-by=/usr/share/keyrings/mongodb-server-8.0.gpg ] http://repo.mongodb.org/apt/debian bookworm/mongodb-org/8.0 main" | tee /etc/apt/sources.list.d/mongodb-org-8.0.list && \
-    apt-get update && apt-get install -y --no-install-recommends mongodb-mongosh && \
-    rm -rf /var/lib/apt/lists/*
+ARG MONGOSH_VERSION=2.2.12
+ARG TARGETARCH
+RUN curl -fsSL -o mongosh.deb "https://downloads.mongodb.com/compass/mongodb-mongosh_${MONGOSH_VERSION}_${TARGETARCH}.deb" && \
+    apt-get install -y ./mongosh.deb && \
+    rm -rf mongosh.deb /var/lib/apt/lists/*
 
 # Install Yarn
 RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null && \
@@ -85,7 +86,7 @@ RUN install -dm 755 /etc/apt/keyrings && \
     rm -rf /var/lib/apt/lists/*
 
 # Runtime stage
-FROM debian:bookworm-slim
+FROM debian:trixie-slim
 
 # Copy binaries and configurations from builder
 COPY --from=builder /usr/local/bin /usr/local/bin
