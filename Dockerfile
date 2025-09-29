@@ -1,5 +1,5 @@
 # Build stage
-FROM debian:trixie-slim AS builder
+FROM debian:bookworm-slim AS builder
 
 # Set build arg for target architecture
 ARG TARGETARCH
@@ -85,7 +85,7 @@ RUN install -dm 755 /etc/apt/keyrings && \
     rm -rf /var/lib/apt/lists/*
 
 # Runtime stage
-FROM debian:trixie-slim
+FROM debian:bookworm-slim
 
 # Copy binaries and configurations from builder
 COPY --from=builder /usr/local/bin /usr/local/bin
