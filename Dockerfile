@@ -57,7 +57,8 @@ RUN echo "deb [signed-by=/usr/share/keyrings/cloud.google.gpg] https://packages.
     gcloud config set metrics/environment github_docker_image
 
 # Install MongoDB shell
-ARG MONGOSH_VERSION=2.2.12
+# Use the latest stable Mongosh version for security and bug fixes. Update as needed: https://github.com/mongodb-js/mongosh/releases
+ARG MONGOSH_VERSION=2.2.5
 ARG TARGETARCH
 RUN set -e && \
     # Download mongosh .deb, checksum, and signature \
