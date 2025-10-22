@@ -23,6 +23,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq \
     msmtp-mta \
     nodejs \
+    npm \
     postgresql-client \
     python3 \
     telnet \
