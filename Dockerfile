@@ -63,11 +63,8 @@ RUN curl -fsSL https://www.mongodb.org/static/pgp/server-8.0.asc | gpg -o /usr/s
     rm -rf /var/lib/apt/lists/*
 
 # Install Yarn
-RUN curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | tee /usr/share/keyrings/yarnkey.gpg >/dev/null && \
-    echo "deb [signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | tee /etc/apt/sources.list.d/yarn.list && \
-    apt-get update && apt-get install -y --no-install-recommends yarn && \
-    yarn global add aws-es-curl && \
-    rm -rf /var/lib/apt/lists/*
+RUN npm install -g yarn && \
+    yarn global add aws-es-curl
 
 # Install Oh My Zsh
 RUN sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
